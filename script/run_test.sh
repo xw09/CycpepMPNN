@@ -27,4 +27,4 @@ python ../main.py \
         --seed 37 \
         --batch_size 1\
         --path_to_model_weights "./model_weight" \
-        --model_name "CycpepMPNN"
+        --model_name "HighMPNN"
