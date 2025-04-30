@@ -1,4 +1,4 @@
-#HighMPNN
+## HighMPNN
 This is the official implementation for the paper titled 'HighMPNN: A Graph Neural Network Approach for Structure-Constrained Cyclic Peptide Sequence Design'.
 ![alt text](image.png)
 ## Set up
