@@ -1,8 +1,8 @@
-# CycpepMPNN
-This is the official implementation for the paper titled 'CycpepMPNN: A Graph Neural Network Approach for Structure-Constrained Cyclic Peptide Sequence Design'.
+#HighMPNN
+This is the official implementation for the paper titled 'HighMPNN: A Graph Neural Network Approach for Structure-Constrained Cyclic Peptide Sequence Design'.
 ![alt text](image.png)
 ## Set up
-For example to make a conda environment to run CycpepMPNN
+For example to make a conda environment to run HighMPNN
 ```shell
 conda create --name mlfold
 source activate mlfold
@@ -13,6 +13,6 @@ Detailed code of ProteinMPNN can be found in https://github.com/dauparas/Protein
 For more information about the cyclic peptide structure prediction model HighFold, see https://github.com/hongliangduan/HighFold.git
 ## Run
 ```shell
-cd ./CycpepMPNN/script
+cd ./HighMPNN/script
 bash run_test.sh
 ```
