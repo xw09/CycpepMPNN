@@ -6,21 +6,17 @@ from Bio import SeqIO
 from pathlib import Path
 from dataclasses import asdict
 
-# 初始化的 N, CA, C 坐标
 init_N = torch.tensor([-0.5272, 1.3593, 0.000]).float()
 init_CA = torch.zeros_like(init_N)
 init_C = torch.tensor([1.5233, 0.000, 0.000]).float()
 
-# 初始坐标（3个原子）
 INIT_CRDS = torch.zeros((27, 3)).float()
 INIT_CRDS[:3] = torch.stack((init_N, init_CA, init_C), dim=0)  # (3, 3)
 
-# 归一化
 norm_N = init_N / (torch.norm(init_N, dim=-1, keepdim=True) + 1e-5)
 norm_C = init_C / (torch.norm(init_C, dim=-1, keepdim=True) + 1e-5)
-cos_ideal_NCAC = torch.sum(norm_N * norm_C, dim=-1)  # 计算 N-CA-C 角度的余弦值
+cos_ideal_NCAC = torch.sum(norm_N * norm_C, dim=-1)  
 
-# 旋转矩阵计算函数
 def rigid_from_3_points(N, Ca, C, non_ideal=False, eps=1e-8):
     #N, Ca, C - [B,L, 3]
     #R - [B,L, 3, 3], det(R)=1, inv(R) = R.T, R is a rotation matrix
@@ -61,11 +57,7 @@ def get_t(N, Ca, C, non_ideal=False, eps=1e-5):
     t = Ts[:,:,None] - Ts[:,:,:,None] # t[0,1] = residue 0 -> residue 1 vector
     return einsum('iblkj, iblmk -> iblmj', Rs, t) # (I,B,L,L,3)
 
-# 计算 FAPE loss 的函数
 def fape_loss(true, pred, mask_2d, same_chain, negative=False, d_clamp=10.0, d_clamp_inter=30.0, A=10.0, gamma=1.0, eps=1e-6, device="cuda:0"):
-    """
-    计算 FAPE Loss
-    """
     pred = pred.to(device)
     true = true.to(device)
     mask_2d = mask_2d.to(device)
